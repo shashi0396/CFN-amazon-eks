@@ -5,11 +5,11 @@
 [submodule "functions/source/EksClusterResource"]
 	path = functions/source/EksClusterResource
 	url = https://github.com/aws-quickstart/quickstart-amazon-eks-cluster-resource-provider.git
-	branch = main
+	branch = maintenance
 [submodule "functions/source/HelmReleaseResource"]
 	path = functions/source/HelmReleaseResource
 	url = https://github.com/aws-quickstart/quickstart-helm-resource-provider.git
-	branch = main
+	branch = maintenance
 [submodule "submodules/quickstart-eks-snyk"]
 	path = submodules/quickstart-eks-snyk
 	url = https://github.com/aws-quickstart/quickstart-eks-snyk.git
@@ -21,7 +21,7 @@
 [submodule "functions/source/kubernetesResources"]
 	path = functions/source/kubernetesResources
 	url = https://github.com/aws-quickstart/quickstart-kubernetes-resource-provider.git
-	branch = main
+	branch = maintenance
 [submodule "docs/boilerplate"]
 	path = docs/boilerplate
 	url = https://github.com/aws-quickstart/quickstart-documentation-base-common.git
