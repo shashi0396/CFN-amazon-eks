@@ -30,10 +30,6 @@
 	path = submodules/quickstart-eks-tigera-calico
 	url = https://github.com/aws-quickstart/quickstart-eks-tigera-calico.git
 	branch = main
-[submodule "submodules/quickstart-eks-rancher"]
-	path = submodules/quickstart-eks-rancher
-	url = https://github.com/aws-quickstart/quickstart-eks-rancher.git
-	branch = main
 [submodule "submodules/quickstart-eks-rafay-systems"]
 	path = submodules/quickstart-eks-rafay-systems
 	url = https://github.com/aws-quickstart/quickstart-eks-rafay-systems.git
