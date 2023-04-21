@@ -9,7 +9,6 @@ Metadata:
     - Snyk
     - New Relic
     - Rafay
-    - Rancher
     - MuleSoft
     - Anypoint
   SentenceCaseExclude:
@@ -87,11 +86,6 @@ Metadata:
           - RafaySysLastName
           - RafaySysOrganizationName
           - RafaySysEmail
-      - Label:
-          default: Rancher management (AWS Partner management)
-        Parameters:
-          - RancherIntegration
-          - RancherDomainName
       - Label:
           default: MuleSoft Anypoint Runtime Fabric (AWS Partner integration)
         Parameters:
@@ -225,10 +219,6 @@ Metadata:
         default: EKS node on-demand percentage
       NodeGroupOS:
         default: Node group operating system
-      RancherIntegration:
-        default: Rancher management integration
-      RancherDomainName:
-        default: Rancher management domain name
       MuleSoftRtfIntegration:
         default: MuleSoft Anypoint Runtime Fabric integration
       RTFFabricName:
@@ -709,18 +699,6 @@ Parameters:
       "Windows", an additional Amazon Linux node group is created.
     AllowedValues: [Amazon Linux 2, Bottlerocket, Windows]
     Default: Amazon Linux 2
-  RancherIntegration:
-    Type: String
-    Description: >-
-      For more information, see
-      https://github.com/aws-quickstart/quickstart-eks-rancher/.
-    AllowedValues: [Enabled, Disabled]
-    Default: Disabled
-  RancherDomainName:
-    Type: String
-    Description: >-
-      DNS domain name that users can use to access the Rancher console.
-    Default: aws.private
   MuleSoftRtfIntegration:
     Type: String
     Description: >-
@@ -880,9 +858,6 @@ Resources:
         RafaySysLastName: !Ref RafaySysLastName
         RafaySysOrganizationName: !Ref RafaySysOrganizationName
         RafaySysEmail: !Ref RafaySysEmail
-        # Rancher management (AWS Partner management)
-        RancherIntegration: !Ref RancherIntegration
-        RancherDomainName: !Ref RancherDomainName
         # MuleSoft Anypoint Runtime Fabric (AWS Partner integration)
         MuleSoftRtfIntegration: !Ref MuleSoftRtfIntegration
         RTFFabricName: !Ref RTFFabricName

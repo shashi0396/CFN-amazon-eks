@@ -188,13 +188,6 @@ Parameters:
     Type: String
     AllowedValues: [Managed, Unmanaged]
     Default: Managed
-  RancherIntegration:
-    Type: String
-    AllowedValues: [Enabled, Disabled]
-    Default: Disabled
-  RancherDomainName:
-    Type: String
-    Default: rancher.aws.private
   MuleSoftRtfIntegration:
     Type: String
     AllowedValues: [Enabled, Disabled]
@@ -295,7 +288,6 @@ Conditions:
   EnableCalico: !Equals [!Ref CalicoIntegration, Enabled]
   EnableRafaySys: !Equals [!Ref RafaySysIntegration, Enabled]
   EnableFargate: !Not [!Equals [!Ref FargateNamespaces, '']]
-  EnableRancher: !Equals [!Ref RancherIntegration, Enabled]
   EnableMuleSoftRtf: !Equals [!Ref MuleSoftRtfIntegration, Enabled]
   3AZDeployment: !Not [!Equals [!Ref PrivateSubnet3ID, '']]
   2AZDeployment: !Or
@@ -823,27 +815,6 @@ Resources:
           S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
       Parameters:
         ClusterName: !GetAtt EKSControlPlane.Outputs.EKSName
-  RancherStack:
-    Type: AWS::CloudFormation::Stack
-    Condition: EnableRancher
-    DependsOn: [FunctionStack, ControlPlaneSecurityGroupIngress, EbsStorageClass]
-    Metadata:
-      DependsOn:
-        - !If [EnableFargate, !Ref FargateStack, !Ref AWS::NoValue]
-    Properties:
-      TemplateURL: !Sub
-        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}submodules/quickstart-eks-rancher/templates/rancher.template.yaml
-        - S3Region: !If [UsingDefaultBucket, !Ref AWS::Region, !Ref QSS3BucketRegion]
-          S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-      Parameters:
-        PrivateSubnet1ID: !Ref PrivateSubnet1ID
-        EKSClusterName: !GetAtt EKSControlPlane.Outputs.EKSName
-        DomainName: !Ref RancherDomainName
-        IAMRole: !GetAtt IamStack.Outputs.BastionRole
-        SecurityGroup: !GetAtt NodeGroupStack.Outputs.EKSNodeSecurityGroup
-        QSS3BucketName: !Ref QSS3BucketName
-        QSS3KeyPrefix: !Sub ${QSS3KeyPrefix}submodules/quickstart-eks-rancher/
-        QSS3BucketRegion: !Ref QSS3BucketRegion
   MuleSoftRtfStack:
     Type: AWS::CloudFormation::Stack
     Condition: EnableMuleSoftRtf
